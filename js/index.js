@@ -9,3 +9,20 @@ function initParallax() {
 
 initParallax();
 window.addEventListener("resize", initParallax);
+
+// Particles
+function Particle() {
+    this.element = 
+}
+
+Particle.images = [];
+Particle.loadParticles = function() {
+    var promises = [];
+    for(var url of []) {
+        
+        var image = new Image();
+        image.addEventListener("load", () => Particle.images.push(image));
+        image.src = url;
+    }
+    Promise.all
+}

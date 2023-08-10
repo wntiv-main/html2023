@@ -6,18 +6,45 @@ body {
     overflow: hidden;
 }
 
+:root {
+    --nav-background: #692933;
+}
+
 * {
     box-sizing: border-box;
 }
 
-.parallax-container {
+.pre-nav {
+    background: var(--nav-background);
+}
+
+.content-center {
     max-width: 900px;
+    margin: 0 auto;
+}
+
+nav.navbar {
+    width: 100%;
+    height: 2em;
+    background-color: var(--nav-background);
+    position: sticky !important;
+    top: -2px;
+    margin-top: -1px;
+}
+
+/* Multi-layer parallax effect */
+.parallax-container {
     margin: 0 auto;
     --perspective: 100;
     perspective: calc(var(--perspective) * 1px);
     height: 100vh;
     overflow-x: hidden;
     overflow-y: auto;
+    position: relative;
+}
+
+.parallax-container > :not(.parallax-object){
+    z-index: 1;
     position: relative;
 }
 
@@ -49,6 +76,10 @@ body {
 
 .parallax-mid {
     --z-offset: 0;
+}
+
+.parallax-mid-front {
+    --z-offset: 25;
 }
 
 .parallax-back {
