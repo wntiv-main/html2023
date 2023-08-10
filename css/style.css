@@ -1,0 +1,65 @@
+html,
+body {
+    /* do nothing */
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.parallax-container {
+    max-width: 900px;
+    margin: 0 auto;
+    --perspective: 100;
+    perspective: calc(var(--perspective) * 1px);
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+}
+
+.parallax-object {
+    --center-on: top;
+    --z-offset: 0;
+    --scale: calc(1 + (var(--z-offset) * -1) / var(--perspective));
+    transform: scale(var(--scale)) translateZ(calc(var(--z-offset) * 1px));
+    transform-origin: center var(--center-on);
+    position: absolute;
+    top: calc(1% * var(--z-offset));
+    width: 100%;
+    left: calc(10px * (1 - var(--scale)));
+    height: 400px;
+}
+
+.topic {
+    font-size: 1.1em;
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.topic:last-child {
+    margin-bottom: 0;
+}
+
+.parallax-mid {
+    --z-offset: 0;
+}
+
+.parallax-back {
+    --z-offset: -50;
+}
+
+.parallax-front {
+    --z-offset: 50;
+}
+
+.background {
+    background-image: url("https://i.redd.it/13s1ygieawu81.jpg");
+    background-size: contain;
+}
