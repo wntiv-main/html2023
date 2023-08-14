@@ -7,7 +7,12 @@ body {
 }
 
 :root {
-    --nav-background: #692933;
+    --school-color: #692933;
+    --space-accent: #311d51;
+    --space-secondary: #030014;
+    --logo-width: 170px;
+    --nav-background: linear-gradient(135deg, var(--school-color) var(--logo-width), transparent calc(var(--logo-width) + 20%)),
+                      linear-gradient(185deg, var(--space-accent), var(--space-secondary));
 }
 
 * {
@@ -15,21 +20,53 @@ body {
 }
 
 .pre-nav {
-    background: var(--nav-background);
+    padding: 10px 10px 0 10px;
+    height: 4em;
 }
 
-.content-center {
-    max-width: 900px;
-    margin: 0 auto;
+.pre-nav, nav.navbar {
+    background: var(--nav-background);
+    background-size: 100% calc(5em + 20px);
+}
+
+.pre-nav img, nav.navbar a {
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.logo {
+    height: 100%;
+    display: block;
 }
 
 nav.navbar {
     width: 100%;
-    height: 2em;
-    background-color: var(--nav-background);
     position: sticky !important;
+    background-position: 0 -4em;
     top: -2px;
     margin-top: -1px;
+}
+
+nav.navbar ul {
+    list-style: none;
+    text-align: center;
+    font-size: 0;
+    padding: 10px 0;
+}
+
+nav.navbar ul li {
+    display: inline-block;
+    font-size: 1rem;
+}
+
+nav.navbar ul li a {
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+}
+
+nav.navbar ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 /* Multi-layer parallax effect */

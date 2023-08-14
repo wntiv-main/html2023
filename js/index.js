@@ -12,7 +12,7 @@ window.addEventListener("resize", initParallax);
 
 // Particles
 function Particle() {
-    this.element = 
+    this.element = 0;
 }
 
 Particle.images = [];
