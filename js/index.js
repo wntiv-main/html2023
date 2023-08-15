@@ -4,6 +4,7 @@ function initParallax() {
     }
     for(var el of document.getElementsByClassName("parallax-object")) {
         el.style.setProperty("--center-on", (el.getBoundingClientRect().height / 2 - el.parentElement.getBoundingClientRect().height) + "px");
+        el.style.setProperty("--left-offset", (el.getBoundingClientRect().left - parseFloat(el.style.getPropertyValue("--left-offset") || 0)) + "px")
     }
 }
 

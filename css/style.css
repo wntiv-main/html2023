@@ -8,11 +8,14 @@ body {
 
 :root {
     --school-color: #692933;
-    --space-accent: #311d51;
-    --space-secondary: #030014;
+    --space-accent: #311d51C0;
+    --space-secondary: #030014C0;
     --logo-width: 170px;
     --nav-background: linear-gradient(135deg, var(--school-color) var(--logo-width), transparent calc(var(--logo-width) + 20%)),
                       linear-gradient(185deg, var(--space-accent), var(--space-secondary));
+
+    --nav-height: calc(30px + 1em);
+    --pre-nav-height: 4em;
 }
 
 * {
@@ -20,16 +23,31 @@ body {
 }
 
 .pre-nav {
+    position: relative;
+    z-index: 1000;
     padding: 10px 10px 0 10px;
-    height: 4em;
+    height: var(--pre-nav-height);
 }
 
 .pre-nav, nav.navbar {
+    position: relative;
+    z-index: 100;
     background: var(--nav-background);
-    background-size: 100% calc(5em + 20px);
+    background-size: 100% calc(var(--nav-height) + var(--pre-nav-height));
 }
 
-.pre-nav img, nav.navbar a {
+nav.navbar::before {
+    z-index: -1;
+    content: "";
+    backdrop-filter: blur(10px);
+    width: 100%;
+    height: calc(var(--nav-height) + var(--pre-nav-height));
+    position: absolute;
+    left: 0;
+    top: calc(-1 * var(--pre-nav-height));
+}
+
+.pre-nav, nav.navbar, .pre-nav img, nav.navbar a {
     user-select: none;
     -webkit-user-drag: none;
 }
@@ -44,14 +62,15 @@ nav.navbar {
     position: sticky !important;
     background-position: 0 -4em;
     top: -2px;
-    margin-top: -1px;
+    height: var(--nav-height);
+    /* overflow: hidden; */
 }
 
 nav.navbar ul {
     list-style: none;
     text-align: center;
     font-size: 0;
-    padding: 10px 0;
+    padding: 15px 0;
 }
 
 nav.navbar ul li {
@@ -60,12 +79,14 @@ nav.navbar ul li {
 }
 
 nav.navbar ul li a {
-    padding: 10px;
+    padding: 15px 20px;
     color: white;
     text-decoration: none;
+    transition: background-color 0.3s;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-nav.navbar ul li a:hover {
+nav.navbar ul li a:hover, nav.navbar ul li a.active {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
@@ -80,13 +101,13 @@ nav.navbar ul li a:hover {
     position: relative;
 }
 
-.parallax-container > :not(.parallax-object){
-    z-index: 1;
-    position: relative;
+.parallax-container > :not(.parallax-object) {
+    /* position: relative; */
 }
 
 .parallax-object {
     --center-on: top;
+    --left-offset: 0px;
     --z-offset: 0;
     --scale: calc(1 + (var(--z-offset) * -1) / var(--perspective));
     transform: scale(var(--scale)) translateZ(calc(var(--z-offset) * 1px));
@@ -94,14 +115,16 @@ nav.navbar ul li a:hover {
     position: absolute;
     top: calc(1% * var(--z-offset));
     width: 100%;
-    left: calc(10px * (1 - var(--scale)));
+    /* why the hell do i need to do this? */
+    left: calc(-1 * var(--left-offset));
     height: 400px;
 }
 
 .topic {
     font-size: 1.1em;
     backdrop-filter: blur(10px);
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: #030014C0;
+    color: white;
     padding: 20px;
     position: relative;
     margin-bottom: 20px;
@@ -128,6 +151,6 @@ nav.navbar ul li a:hover {
 }
 
 .background {
-    background-image: url("https://i.redd.it/13s1ygieawu81.jpg");
+    background-image: url("https://www.kennedy-center.org/globalassets/education/resources-for-educators/classroom-resources/artsedge/media/art-space/art-space-169.jpg");
     background-size: contain;
 }
