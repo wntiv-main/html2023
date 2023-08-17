@@ -31,7 +31,7 @@ body {
 
 .pre-nav, nav.navbar {
     position: relative;
-    z-index: 100;
+    z-index: 1000;
     background: var(--nav-background);
     background-size: 100% calc(var(--nav-height) + var(--pre-nav-height));
 }
@@ -44,7 +44,8 @@ body {
     position: sticky;
     display: block;
     left: 0;
-    top: calc(-1 * var(--pre-nav-height));
+    top: calc(-1 * var(--pre-nav-height) - 2px);
+    z-index: 999;
 }
 
 .pre-nav, nav.navbar, .pre-nav img, nav.navbar a {
@@ -115,9 +116,7 @@ nav.navbar ul li a:hover, nav.navbar ul li a.active {
     position: absolute;
     top: calc(1% * var(--z-offset));
     width: 100%;
-    /* why the hell do i need to do this? */
     left: 0;
-    height: 400px;
 }
 
 .parallax-object:has(.topic) {
@@ -125,18 +124,34 @@ nav.navbar ul li a:hover, nav.navbar ul li a.active {
     margin-bottom: 20px;
 }
 
+/* .parallax-object:has(img.topic) {
+    text-align: center;
+} */
+
+.parallax-object:has(.topic):last-child {
+    margin-bottom: 0;
+}
+
 .topic {
+    display: block;
     margin: 0 auto;
     font-size: 1.1em;
     backdrop-filter: blur(10px);
     background-color: #030014C0;
     color: white;
-    padding: 20px;
-    max-width: 900px;
+    padding: 30px;
+    border-radius: 20px;
+    max-width: 900px;   
+    min-height: 400px;
+    transition: transform 0.5s;
 }
 
-.topic:last-child {
-    margin-bottom: 0;
+img.topic {
+    padding: 0;
+}
+
+.topic:hover {
+    transform: scale(1.05);
 }
 
 .parallax-mid {
@@ -156,6 +171,9 @@ nav.navbar ul li a:hover, nav.navbar ul li a.active {
 }
 
 .background {
-    background-image: url("https://www.kennedy-center.org/globalassets/education/resources-for-educators/classroom-resources/artsedge/media/art-space/art-space-169.jpg");
+    background-image: 
+        linear-gradient(260deg, #030014, transparent),
+        linear-gradient(84deg, var(--space-accent), transparent 50%),
+        url("https://www.kennedy-center.org/globalassets/education/resources-for-educators/classroom-resources/artsedge/media/art-space/art-space-169.jpg");
     background-size: contain;
 }

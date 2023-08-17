@@ -30,3 +30,9 @@ Particle.loadParticles = function() {
     }
     Promise.all
 }
+
+document.getElementsByClassName("content")[0].addEventListener("scroll", () => {
+    for(var topic of document.getElementsByClassName("")) {
+        topic.style.transform = `rotate`;
+    }
+});
