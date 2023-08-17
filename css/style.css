@@ -36,13 +36,13 @@ body {
     background-size: 100% calc(var(--nav-height) + var(--pre-nav-height));
 }
 
-nav.navbar::before {
-    z-index: -1;
-    content: "";
+.nav-blurdrop {
     backdrop-filter: blur(10px);
     width: 100%;
     height: calc(var(--nav-height) + var(--pre-nav-height));
-    position: absolute;
+    margin-bottom: calc(-1 * var(--nav-height) - var(--pre-nav-height));
+    position: sticky;
+    display: block;
     left: 0;
     top: calc(-1 * var(--pre-nav-height));
 }
@@ -63,7 +63,7 @@ nav.navbar {
     background-position: 0 -4em;
     top: -2px;
     height: var(--nav-height);
-    /* overflow: hidden; */
+    overflow: hidden;
 }
 
 nav.navbar ul {
@@ -110,24 +110,29 @@ nav.navbar ul li a:hover, nav.navbar ul li a.active {
     --left-offset: 0px;
     --z-offset: 0;
     --scale: calc(1 + (var(--z-offset) * -1) / var(--perspective));
-    transform: scale(var(--scale)) translateZ(calc(var(--z-offset) * 1px));
+    transform: scale(var(--scale)) translateZ(calc(var(--z-offset) * 1px)) translateX(calc(-1 * var(--left-offset)));
     transform-origin: center var(--center-on);
     position: absolute;
     top: calc(1% * var(--z-offset));
     width: 100%;
     /* why the hell do i need to do this? */
-    left: calc(-1 * var(--left-offset));
+    left: 0;
     height: 400px;
 }
 
+.parallax-object:has(.topic) {
+    position: relative;
+    margin-bottom: 20px;
+}
+
 .topic {
+    margin: 0 auto;
     font-size: 1.1em;
     backdrop-filter: blur(10px);
     background-color: #030014C0;
     color: white;
     padding: 20px;
-    position: relative;
-    margin-bottom: 20px;
+    max-width: 900px;
 }
 
 .topic:last-child {
