@@ -1,179 +1,243 @@
 html,
 body {
-    /* do nothing */
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
+	/* do nothing */
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
 }
 
 :root {
-    --school-color: #692933;
-    --space-accent: #311d51C0;
-    --space-secondary: #030014C0;
-    --logo-width: 170px;
-    --nav-background: linear-gradient(135deg, var(--school-color) var(--logo-width), transparent calc(var(--logo-width) + 20%)),
-                      linear-gradient(185deg, var(--space-accent), var(--space-secondary));
+	--school-color: #692933;
+	--space-accent: #311d51C0;
+	--space-secondary: #030014C0;
+	--logo-width: 170px;
+	--nav-background: linear-gradient(135deg, var(--school-color) var(--logo-width), transparent calc(var(--logo-width) + 20%)),
+		linear-gradient(185deg, var(--space-accent), var(--space-secondary));
 
-    --nav-height: calc(30px + 1em);
-    --pre-nav-height: 4em;
+	--nav-height: calc(30px + 1em);
+	--pre-nav-height: 4em;
+
+	--content-width: 900px;
 }
 
 * {
-    box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 .pre-nav {
-    position: relative;
-    z-index: 1000;
-    padding: 10px 10px 0 10px;
-    height: var(--pre-nav-height);
+	position: relative;
+	padding: 10px 10px 0 10px;
+	height: var(--pre-nav-height);
 }
 
-.pre-nav, nav.navbar {
-    position: relative;
-    z-index: 1000;
-    background: var(--nav-background);
-    background-size: 100% calc(var(--nav-height) + var(--pre-nav-height));
+.pre-nav,
+nav.navbar {
+	position: relative;
+	z-index: 1000;
+	background: var(--nav-background);
+	background-size: 100% calc(var(--nav-height) + var(--pre-nav-height));
 }
 
 .nav-blurdrop {
-    backdrop-filter: blur(10px);
-    width: 100%;
-    height: calc(var(--nav-height) + var(--pre-nav-height));
-    margin-bottom: calc(-1 * var(--nav-height) - var(--pre-nav-height));
-    position: sticky;
-    display: block;
-    left: 0;
-    top: calc(-1 * var(--pre-nav-height) - 2px);
-    z-index: 999;
+	backdrop-filter: blur(10px);
+	width: 100%;
+	height: calc(var(--nav-height) + var(--pre-nav-height));
+	margin-bottom: calc(-1 * var(--nav-height) - var(--pre-nav-height));
+	position: sticky;
+	display: block;
+	left: 0;
+	top: calc(-1 * var(--pre-nav-height) - 2px);
+	z-index: 999;
 }
 
-.pre-nav, nav.navbar, .pre-nav img, nav.navbar a {
-    user-select: none;
-    -webkit-user-drag: none;
+.pre-nav,
+nav.navbar,
+.pre-nav img,
+nav.navbar a {
+	user-select: none;
+	-webkit-user-drag: none;
 }
 
 .logo {
-    height: 100%;
-    display: block;
+	height: 100%;
+	display: block;
 }
 
 nav.navbar {
-    width: 100%;
-    position: sticky !important;
-    background-position: 0 -4em;
-    top: -2px;
-    height: var(--nav-height);
-    overflow: hidden;
+	width: 100%;
+	position: sticky;
+	background-position: 0 -4em;
+	top: -2px;
+	height: var(--nav-height);
+	overflow: hidden;
+	margin-bottom: 20px;
 }
 
 nav.navbar ul {
-    list-style: none;
-    text-align: center;
-    font-size: 0;
-    padding: 15px 0;
+	list-style: none;
+	text-align: center;
+	font-size: 0;
+	padding: 15px 0;
 }
 
 nav.navbar ul li {
-    display: inline-block;
-    font-size: 1rem;
+	display: inline-block;
+	font-size: 1rem;
 }
 
 nav.navbar ul li a {
-    padding: 15px 20px;
-    color: white;
-    text-decoration: none;
-    transition: background-color 0.3s;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+	padding: 15px 20px;
+	color: white;
+	text-decoration: none;
+	transition: background-color 0.3s;
+	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-nav.navbar ul li a:hover, nav.navbar ul li a.active {
-    background-color: rgba(255, 255, 255, 0.2);
+nav.navbar ul li a:hover,
+nav.navbar ul li a.active {
+	background-color: rgba(255, 255, 255, 0.2);
 }
 
 /* Multi-layer parallax effect */
 .parallax-container {
-    margin: 0 auto;
-    --perspective: 100;
-    perspective: calc(var(--perspective) * 1px);
-    height: 100vh;
-    overflow-x: hidden;
-    overflow-y: auto;
-    position: relative;
-}
-
-.parallax-container > :not(.parallax-object) {
-    /* position: relative; */
+	margin: 0 auto;
+	--perspective: 100;
+	perspective: calc(var(--perspective) * 1px);
+	height: 100vh;
+	overflow-x: hidden;
+	overflow-y: auto;
+	position: relative;
 }
 
 .parallax-object {
-    --center-on: top;
-    --left-offset: 0px;
-    --z-offset: 0;
-    --scale: calc(1 + (var(--z-offset) * -1) / var(--perspective));
-    transform: scale(var(--scale)) translateZ(calc(var(--z-offset) * 1px)) translateX(calc(-1 * var(--left-offset)));
-    transform-origin: center var(--center-on);
-    position: absolute;
-    top: calc(1% * var(--z-offset));
-    width: 100%;
-    left: 0;
+	--center-on: top;
+	--left-offset: 0px;
+	--z-offset: 0;
+	--scale: calc(1 + (var(--z-offset) * -1) / var(--perspective));
+	transform: scale(var(--scale)) translateZ(calc(var(--z-offset) * 1px)) translateX(calc(-1 * var(--left-offset)));
+	transform-origin: center var(--center-on);
+	position: absolute;
+	top: calc(1% * var(--z-offset));
+	width: 100%;
+	left: 0;
 }
 
 .parallax-object:has(.topic) {
-    position: relative;
-    margin-bottom: 20px;
+	position: relative;
+	margin-bottom: 20px;
+	perspective: 200vh;
+	backdrop-filter: blur(10px);
+	background-color: #030014C0;
 }
 
-/* .parallax-object:has(img.topic) {
-    text-align: center;
-} */
-
 .parallax-object:has(.topic):last-child {
-    margin-bottom: 0;
+	margin-bottom: 0;
+}
+
+@property --scale {
+	syntax: '<number>';
+	initial-value: 1;
+	inherits: false;
 }
 
 .topic {
-    display: block;
-    margin: 0 auto;
-    font-size: 1.1em;
-    backdrop-filter: blur(10px);
-    background-color: #030014C0;
-    color: white;
-    padding: 30px;
-    border-radius: 20px;
-    max-width: 900px;   
-    min-height: 400px;
-    transition: transform 0.5s;
+	--scale: 1;
+	--angle: 0rad;
+	display: block;
+	margin: 0 auto;
+	font-size: 1.1em;
+	color: white;
+	/* border-radius: 20px; */
+	max-width: var(--content-width);
+	transform: scale(var(--scale)) rotateX(var(--angle));
+	transition: --scale 0.5s;
 }
 
-img.topic {
-    padding: 0;
+.paragraph {
+	min-height: 400px;
 }
 
-.topic:hover {
-    transform: scale(1.05);
+.topic:not(img, .carousel) {
+	/* backdrop-filter: blur(10px);
+	background-color: #030014C0; */
+	padding: 30px;
 }
+
+.carousel {
+	--carousel-height: auto;
+	line-height: 100%;
+	perspective: var(--content-width);
+	overflow-y: hidden;
+	overflow-x: scroll;
+	text-wrap: nowrap;
+	scroll-behavior: initial;
+	scroll-snap-type: x mandatory;
+	position: relative;
+}
+
+.carousel img {
+	--angle: 0deg;
+	transform: translateZ(calc(-1 * var(--content-width))) rotateY(var(--angle)) translateZ(calc(var(--content-width) - 50%));
+	position: relative;
+	border-radius: 20px;
+	width: 100%;
+	/* height: var(--carousel-height); */
+	object-fit: contain;
+	/* background: var(--space-secondary); */
+	/* backdrop-filter: blur(10px); */
+	object-position: center;
+	vertical-align: middle;
+	scroll-snap-align: center;
+}
+
+.carousel::before {
+	--scale: 1;
+	/* content: "<"; */
+	color: white;
+	position: sticky;
+	display: block;
+	left: 10px;
+	width: 40px;
+	height: 40px;
+	border-radius: 1000px;
+	background: var(--space-secondary);
+	z-index: 1;
+	top: 50%;
+	transform: translateY(-50%) scale(var(--scale));
+	backdrop-filter: blur(10px);
+	text-align: center;
+	line-height: 40px;
+	transition: --scale 0.3s;
+}
+
+.carousel::before:hover {
+	--scale: 1.1;
+}
+
+/* .topic:not(.carousel):hover {
+	--scale: 1.05;
+} */
 
 .parallax-mid {
-    --z-offset: 0;
+	--z-offset: 0;
 }
 
 .parallax-mid-front {
-    --z-offset: 25;
+	--z-offset: 12;
 }
 
 .parallax-back {
-    --z-offset: -50;
+	--z-offset: -25;
 }
 
 .parallax-front {
-    --z-offset: 50;
+	--z-offset: 25;
 }
 
 .background {
-    background-image: 
-        linear-gradient(260deg, #030014, transparent),
-        linear-gradient(84deg, var(--space-accent), transparent 50%),
-        url("https://www.kennedy-center.org/globalassets/education/resources-for-educators/classroom-resources/artsedge/media/art-space/art-space-169.jpg");
-    background-size: contain;
+	background-image:
+		linear-gradient(260deg, #030014, transparent),
+		linear-gradient(84deg, var(--space-accent), transparent 50%),
+		url("https://www.kennedy-center.org/globalassets/education/resources-for-educators/classroom-resources/artsedge/media/art-space/art-space-169.jpg");
+	background-size: cover;
 }
