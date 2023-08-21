@@ -1,3 +1,4 @@
+<?php chdir(__DIR__); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,19 +14,7 @@
 	<div class="container">
 		<article class="content parallax-container">
 			<section class="parallax-object parallax-back background"></section>
-			<section class="nav-blurdrop"></section>
-			<header class="pre-nav">
-				<img class="logo"
-					src="https://sportsgroundproduction.blob.core.windows.net/cms/15344/866920/873921/756b2777-01d9-4cc0-b251-63b586c3e780_wo.png?t=637928716770770000"
-					alt="Cashmere High School logo">
-			</header>
-			<nav class="navbar parallax-object parallax-mid">
-				<ul>
-					<li><a class="active" href="index.html">Home</a></li>
-					<li><a href="contact.html">Contact</a></li>
-					<li><a href="rules.html">Rules</a></li>
-				</ul>
-			</nav>
+			<?php echo readfile("./nav.html") ?>
 			<section class="parallax-object parallax-mid">
 				<div class="topic">
 					Welcome to the Cashmere High School 2024 Formal website. The information on this site is intended to
@@ -39,15 +28,10 @@
 			<section class="parallax-object parallax-front">
 				<div class="topic carousel">
 					<?php
-						chdir(__DIR__);
 						foreach (glob("img/carousel1/*.jpg") as $image) {
 							echo '<img src="', $image, '" alt="2022 Formal">';
 						}
 					?>
-					<!-- <img src="./docs/Provided Images/2022- (44).jpg" alt="2022 Formal">
-					<img src="./docs/Provided Images/2022- (43).jpg" alt="2022 Formal">
-					<img src="./docs/Provided Images/2022- (42).jpg" alt="2022 Formal">
-					<img src="./docs/Provided Images/2022- (41).jpg" alt="2022 Formal"> -->
 				</div>
 			</section>
 			<section class="parallax-object parallax-mid-front">
