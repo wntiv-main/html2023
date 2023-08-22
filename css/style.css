@@ -188,7 +188,7 @@ nav.navbar ul li a.active {
 	object-position: center;
 	vertical-align: middle;
 	scroll-snap-align: center;
-	margin: 0 5px;
+	margin: 0 25px;
 }
 
 .carousel::before {
