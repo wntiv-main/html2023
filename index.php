@@ -45,12 +45,6 @@
 					</ul>
 				</div>
 			</section>
-			<section class="parallax-object parallax-front">
-				<div class="topic">d</div>
-			</section>
-			<section class="parallax-object parallax-mid">
-				<div class="topic">e</div>
-			</section>
 		</article>
 	</div>
 	<script src="js/index.js"></script>
