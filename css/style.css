@@ -170,6 +170,7 @@ nav.navbar ul li a.active {
 	overflow-y: hidden;
 	overflow-x: scroll;
 	text-wrap: nowrap;
+	white-space: nowrap;
 	scroll-behavior: initial;
 	scroll-snap-type: x mandatory;
 	position: relative;
