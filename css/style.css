@@ -157,6 +157,12 @@ nav.navbar ul li a.active {
 	min-height: 400px;
 }
 
+.particle {
+	width: 100px;
+	position: relative;
+	margin-bottom: -100%;
+}
+
 .topic:not(img, .carousel) {
 	/* backdrop-filter: blur(10px);
 	background-color: #030014C0; */
