@@ -11,7 +11,7 @@
 	<script>
 		var particleImages = [
 			<?php
-				foreach (glob("img/carousel1/*.jpg") as $image) {
+				foreach (glob("img/particles/*.*") as $image) {
 					echo '"', $image, '",';
 				}
 			?>

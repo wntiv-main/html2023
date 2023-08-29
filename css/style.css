@@ -158,9 +158,10 @@ nav.navbar ul li a.active {
 }
 
 .particle {
-	width: 100px;
-	position: relative;
-	margin-bottom: -100%;
+	/* width: 100px; */
+	/* position: relative; */
+	/* margin-bottom: -100%;
+	margin-right: -100%; */
 }
 
 .topic:not(img, .carousel) {
