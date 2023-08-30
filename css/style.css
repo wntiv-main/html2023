@@ -101,7 +101,7 @@ nav.navbar ul li a.active {
 /* Multi-layer parallax effect */
 .parallax-container {
 	margin: 0 auto;
-	--perspective: 100;
+	--perspective: 200;
 	perspective: calc(var(--perspective) * 1px);
 	height: 100vh;
 	overflow-x: hidden;

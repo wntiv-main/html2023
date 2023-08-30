@@ -42,7 +42,7 @@ function Particle() {
 	img.style.setProperty("width", src.source.width);
 	img.classList.add("particle");
 	img.classList.add("parallax-object");
-	img.style.setProperty("--z-offset", randint(-50, 100));
+	img.style.setProperty("--z-offset", randint(100, 200));
 	var leftOffset = randint(0, (window.innerWidth - 900) / 2);
 	if(Math.random() > 0.5) leftOffset = window.innerWidth - leftOffset - 100;
 	img.style.setProperty("left", `${leftOffset}px`);

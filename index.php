@@ -24,7 +24,7 @@
 <body>
 	<article class="content parallax-container">
 		<section class="parallax-object parallax-back background"></section>
-		<?php readfile("./nav.html") ?>
+		<?php include "./nav.php" ?>
 		<section class="parallax-object parallax-mid">
 			<div class="topic">
 				Welcome to the Cashmere High School 2024 Formal website. The information on this site is intended to
