@@ -33,22 +33,45 @@ function randint(min, max) {
 	return Math.floor(Math.random() * (max - min) + min)
 }
 
+class ParticleManager {
+
+}
+
 // Particles
-function Particle() {
-	// Typechecking bs.. can remove when out of dev
-	var img = new Image();
-	var src = Particle.images[randint(0, Particle.images.length)];
-	img = src.image.cloneNode();
-	img.style.setProperty("width", src.source.width);
-	img.classList.add("particle");
-	img.classList.add("parallax-object");
-	img.style.setProperty("--z-offset", randint(100, 200));
-	var leftOffset = randint(0, (window.innerWidth - 900) / 2);
-	if(Math.random() > 0.5) leftOffset = window.innerWidth - leftOffset - 100;
-	img.style.setProperty("left", `${leftOffset}px`);
-	img.style.setProperty("top", `${randint(0, 1000)}px`);
-	document.getElementsByClassName("content")[0].appendChild(img);
-	this.image = img;
+class Particle {
+	constructor() {
+		// Typechecking bs.. can remove when out of dev
+		var img = new Image();
+		var src = Particle.images[randint(0, Particle.images.length)];
+		img = src.image.cloneNode();
+		img.style.setProperty("width", src.source.width);
+		img.classList.add("particle");
+		img.classList.add("parallax-object");
+		img.style.setProperty("--z-offset", randint(100, 200));
+		var leftOffset = randint(0, (window.innerWidth - 900) / 2);
+		if(Math.random() > 0.5) leftOffset = window.innerWidth - leftOffset - 100;
+		img.style.setProperty("left", `${leftOffset}px`);
+		img.style.setProperty("top", `${randint(0, 1000)}px`);
+		document.getElementsByClassName("content")[0].appendChild(img);
+		this.image = img;
+	}
+	static async loadParticles() {
+		var promises = [];
+		for(var src of Particle.sources) {
+			promises.push(new Promise((res, rej) => {
+				var image = new Image();
+				image.addEventListener("load", () => {
+					res({
+						image: image,
+						source: src
+					});
+				});
+				image.addEventListener("error", () => res(null));
+				image.src = src.url;
+			}));
+		}
+		return Promise.all(promises).then(ims => Particle.images = ims.filter(im => !!im));
+	}
 }
 
 Particle.sources = [
@@ -58,23 +81,6 @@ Particle.sources = [
 	}
 ];
 Particle.images = [];
-Particle.loadParticles = async function() {
-	var promises = [];
-	for(var src of Particle.sources) {
-		promises.push(new Promise((res, rej) => {
-			var image = new Image();
-			image.addEventListener("load", () => {
-				res({
-					image: image,
-					source: src
-				});
-			});
-			image.addEventListener("error", () => res(null));
-			image.src = src.url;
-		}));
-	}
-	return Promise.all(promises).then(ims => Particle.images = ims.filter(im => !!im));
-}
 
 Particle.loadParticles().then(() => {
 	for(var i = 0; i < 100; i++) {
