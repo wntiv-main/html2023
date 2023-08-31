@@ -33,8 +33,85 @@ function randint(min, max) {
 	return Math.floor(Math.random() * (max - min) + min)
 }
 
-class ParticleManager {
+class RandomImageSource {
+	url = "";
+	width = "100px";
+	weight = 1;
+	postprocess = (r, g, b) => [r, g, b];
+	#imageNode = null;
 
+	constructor() {
+		
+	}
+
+	async load() {
+		return new Promise((res, rej) => {
+			var img = new Image();
+			img.addEventListener("load", () => {
+				this.#imageNode = this.postLoad(img);
+				res();
+			});
+			img.addEventListener("error", () => rej());
+			img.style.width = this.width;
+			img.src = this.url;
+			// TODO: apply postprocess
+		});
+	}
+
+	postLoad(el) {
+		return el;
+	}
+	postClone(el) {
+		return el;
+	}
+
+	getNode() {
+		return this.postClone(this.#imageNode.cloneNode());
+	}
+}
+
+
+class ParticleSource extends RandomImageSource {
+	postLoad(el) {
+		el.classList.add("particle");
+		el.classList.add("parallax-object");
+		return super.postLoad(el);
+	}
+
+	postClone(el) {
+		el.style.setProperty("width", src.source.width);
+		el.classList.add("particle");
+		el.classList.add("parallax-object");
+		el.style.setProperty("--z-offset", randint(100, 200));
+		var leftOffset = randint(0, (window.innerWidth - 900) / 2);
+		if(Math.random() > 0.5) leftOffset = window.innerWidth - leftOffset - 100;
+		el.style.setProperty("left", `${leftOffset}px`);
+		el.style.setProperty("top", `${randint(0, 1000)}px`);
+		document.getElementsByClassName("content")[0].appendChild(el);
+		return super.postLoad(el);
+	}
+}
+
+class ParticleManager {
+	sources = [];
+	totalWeight = 0;
+	constructor() {
+	}
+
+	async addSource(source) {
+		return source.load().then(() => {
+			this.totalWeight += source.weight;
+			this.sources.push(source);
+		});
+	}
+
+	getSource() {
+		var selected = randint(0, this.totalWeight);
+		for(var source of this.sources) {
+			if(selected < source.weight) return source;
+			selected -= source.weight;
+		}
+	}
 }
 
 // Particles
