@@ -14,7 +14,7 @@
 	<div class="container">
 		<article class="content parallax-container">
 			<section class="parallax-object parallax-back background"></section>
-			<?php include "./nav.php" ?>
+			<?php include "./template/nav.php" ?>
 			<section class="parallax-object parallax-mid">
 				<div class="topic">
 					To register your interest in attending this event, simply provide us with the following information

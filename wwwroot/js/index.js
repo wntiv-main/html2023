@@ -5,13 +5,15 @@ function initParallax() {
 		while(bottomMostChild.classList.contains("particle") || window.getComputedStyle(bottomMostChild, null).getPropertyValue("position") == "absolute") {
 			bottomMostChild = bottomMostChild.previousElementSibling;
 		}
-		el.firstElementChild.style.height = (bottomMostChild.offsetTop + bottomMostChild.getBoundingClientRect().height / 2 + window.innerHeight / 2) + "px";
+		var height = (bottomMostChild.offsetTop + bottomMostChild.getBoundingClientRect().height / 2 + window.innerHeight / 2);
+		el.firstElementChild.style.height = height + "px";
+		el.firstElementChild.style.setProperty("--center-on", -height + "px");
 	}
 	for(var el of document.getElementsByClassName("parallax-object")) {
+		if(el == el.parentElement.firstElementChild) continue;
 		el.style.setProperty("--center-on", (el.getBoundingClientRect().height / 2 - el.parentElement.getBoundingClientRect().height + navHeight) + "px");
 		var style = window.getComputedStyle(el, null);
-		if(!el.classList.contains("particle"))
-			el.style.setProperty("--left-offset", `${(el.getBoundingClientRect().left + parseFloat(style.getPropertyValue("--left-offset") || 0))}px`);
+		el.style.setProperty("--left-offset", `${(el.getBoundingClientRect().left + parseFloat(style.getPropertyValue("--left-offset") || 0))}px`);
 	}
 
 	for(var carousel of document.getElementsByClassName("carousel")) {
@@ -40,8 +42,11 @@ class RandomImageSource {
 	postprocess = (r, g, b) => [r, g, b];
 	#imageNode = null;
 
-	constructor() {
-		
+	constructor(obj) {
+		if("url" in obj) this.url = obj.url;
+		if("width" in obj) this.width = obj.width;
+		if("weight" in obj) this.weight = obj.weight;
+		if("postprocess" in obj) this.postprocess = obj.postprocess;
 	}
 
 	async load() {
@@ -72,6 +77,12 @@ class RandomImageSource {
 
 
 class ParticleSource extends RandomImageSource {
+	additionalEffects = el => el;
+	constructor(obj) {
+		super(obj);
+		if("additionalEffects" in obj) this.additionalEffects = obj.additionalEffects;
+	}
+
 	postLoad(el) {
 		el.classList.add("particle");
 		el.classList.add("parallax-object");
@@ -79,16 +90,20 @@ class ParticleSource extends RandomImageSource {
 	}
 
 	postClone(el) {
-		el.style.setProperty("width", src.source.width);
 		el.classList.add("particle");
 		el.classList.add("parallax-object");
-		el.style.setProperty("--z-offset", randint(100, 200));
-		var leftOffset = randint(0, (window.innerWidth - 900) / 2);
-		if(Math.random() > 0.5) leftOffset = window.innerWidth - leftOffset - 100;
-		el.style.setProperty("left", `${leftOffset}px`);
-		el.style.setProperty("top", `${randint(0, 1000)}px`);
+
+		el.style.setProperty("width", this.width);
+		var zOffset = randint(-100, 400);
+		el.style.setProperty("--z-offset", zOffset);
+
+		var leftOffset = randint(450, window.innerWidth / 2);
+		if(Math.random() > 0.5) leftOffset = -leftOffset;
+		el.style.setProperty("--left", `${leftOffset}px`);
+		el.style.setProperty("--top", `${randint(0, document.getElementsByClassName("content")[0].scrollHeight)}px`);
+
 		document.getElementsByClassName("content")[0].appendChild(el);
-		return super.postLoad(el);
+		return super.postClone(this.additionalEffects(el));
 	}
 }
 
@@ -112,58 +127,59 @@ class ParticleManager {
 			selected -= source.weight;
 		}
 	}
-}
 
-// Particles
-class Particle {
-	constructor() {
-		// Typechecking bs.. can remove when out of dev
-		var img = new Image();
-		var src = Particle.images[randint(0, Particle.images.length)];
-		img = src.image.cloneNode();
-		img.style.setProperty("width", src.source.width);
-		img.classList.add("particle");
-		img.classList.add("parallax-object");
-		img.style.setProperty("--z-offset", randint(100, 200));
-		var leftOffset = randint(0, (window.innerWidth - 900) / 2);
-		if(Math.random() > 0.5) leftOffset = window.innerWidth - leftOffset - 100;
-		img.style.setProperty("left", `${leftOffset}px`);
-		img.style.setProperty("top", `${randint(0, 1000)}px`);
-		document.getElementsByClassName("content")[0].appendChild(img);
-		this.image = img;
-	}
-	static async loadParticles() {
-		var promises = [];
-		for(var src of Particle.sources) {
-			promises.push(new Promise((res, rej) => {
-				var image = new Image();
-				image.addEventListener("load", () => {
-					res({
-						image: image,
-						source: src
-					});
-				});
-				image.addEventListener("error", () => res(null));
-				image.src = src.url;
-			}));
-		}
-		return Promise.all(promises).then(ims => Particle.images = ims.filter(im => !!im));
+	create() {
+		return this.getSource().getNode();
 	}
 }
 
-Particle.sources = [
-	{
+function varyHue(el) {
+	el.style.filter = `hue-rotate(${randint(-20, 20)}deg)`;
+}
+
+var particles = new ParticleManager();
+Promise.allSettled([
+	particles.addSource(new ParticleSource({
 		url: "./img/particles/point_star.png",
-		width: "10px"
-	}
-];
-Particle.images = [];
-
-Particle.loadParticles().then(() => {
-	for(var i = 0; i < 100; i++) {
-		new Particle();
+		width: "10px",
+		weight: 20
+	})),
+	particles.addSource(new ParticleSource({
+		url: "./img/particles/star1.png",
+		width: "50px",
+		additionalEffects: varyHue
+	})),
+	particles.addSource(new ParticleSource({
+		url: "./img/particles/star2.png",
+		width: "50px",
+		additionalEffects: varyHue
+	})),
+	particles.addSource(new ParticleSource({
+		url: "./img/particles/star3.png",
+		width: "50px",
+		additionalEffects: varyHue
+	})),
+	particles.addSource(new ParticleSource({
+		url: "./img/particles/star4.png",
+		width: "50px",
+		additionalEffects: varyHue
+	})),
+	particles.addSource(new ParticleSource({
+		url: "./img/particles/star5.png",
+		width: "50px",
+		additionalEffects: varyHue
+	})),
+	particles.addSource(new ParticleSource({
+		url: "./img/particles/star6.png",
+		width: "50px",
+		additionalEffects: varyHue
+	}))
+]).then(() => {
+	for(let i = 0; i < 100; i++) {
+		particles.create();
 	}
 });
+
 
 // document.getElementsByClassName("content")[0].addEventListener("scroll", () => {
 // 	for(var topic of document.getElementsByClassName("topic")) {

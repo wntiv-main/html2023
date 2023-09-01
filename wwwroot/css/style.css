@@ -70,7 +70,7 @@ nav.navbar {
 	top: -2px;
 	height: var(--nav-height);
 	overflow: hidden;
-	margin-bottom: 20px;
+	margin-bottom: 50px;
 }
 
 nav.navbar ul {
@@ -101,7 +101,7 @@ nav.navbar ul li a.active {
 /* Multi-layer parallax effect */
 .parallax-container {
 	margin: 0 auto;
-	--perspective: 200;
+	--perspective: 400;
 	perspective: calc(var(--perspective) * 1px);
 	height: 100vh;
 	overflow-x: hidden;
@@ -114,17 +114,36 @@ nav.navbar ul li a.active {
 	--left-offset: 0px;
 	--z-offset: 0;
 	--scale: calc(1 + (var(--z-offset) * -1) / var(--perspective));
-	transform: scale(var(--scale)) translateZ(calc(var(--z-offset) * 1px)) translateX(calc(-1 * var(--left-offset)));
-	transform-origin: center var(--center-on);
+	--parallax-transform: scale(var(--scale)) translateZ(calc(var(--z-offset) * 1px));
+	z-index: calc(var(--z-offset) / 100);
+	transform: var(--parallax-transform) translateX(calc(-1 * var(--left-offset)));
+	/* transform-origin: center var(--center-on); */
 	position: absolute;
-	top: calc(1% * var(--z-offset));
+	/* top: calc(1% * var(--z-offset)); */
 	width: 100%;
+	top: 0;
 	left: 0;
+}
+
+.parallax-object:has(.topic.left) {
+	width: fit-content;
+	padding-left: calc(50% - 450px);
+	padding-right: 40px;
+	border-radius: 0 20px 20px 0;
+}
+
+.parallax-object:has(.topic.right) {
+	margin-left: auto;
+	transform: var(--parallax-transform);
+	width: fit-content;
+	padding-right: calc(50% - 450px);
+	padding-left: 40px;
+	border-radius: 20px 0 0 20px;
 }
 
 .parallax-object:has(.topic) {
 	position: relative;
-	margin-bottom: 20px;
+	margin-bottom: 50px;
 	perspective: 200vh;
 	backdrop-filter: blur(10px);
 	background-color: #030014C0;
@@ -153,11 +172,24 @@ nav.navbar ul li a.active {
 	transition: --scale 0.5s;
 }
 
+.topic.left, .topic.right {
+	margin: 0;
+}
+
 .paragraph {
 	min-height: 400px;
 }
 
 .particle {
+	--left: 0px;
+	--top: 0px;
+	top: 0;
+	left: 50%;
+	transform: translate(-50%, -50%) var(--parallax-transform) translate(var(--left), var(--top));
+	/* transform-origin: calc(50% - var(--left)) calc(50% - var(--top)); */
+	-webkit-user-drag: none;
+	user-select: none;
+	/* transform-origin: 0 0; */
 	/* width: 100px; */
 	/* position: relative; */
 	/* margin-bottom: -100%;
@@ -232,15 +264,15 @@ nav.navbar ul li a.active {
 }
 
 .parallax-mid-front {
-	--z-offset: 12;
+	--z-offset: 50;
 }
 
 .parallax-back {
-	--z-offset: -25;
+	--z-offset: -200;
 }
 
 .parallax-front {
-	--z-offset: 25;
+	--z-offset: 100;
 }
 
 .background {
@@ -249,4 +281,13 @@ nav.navbar ul li a.active {
 		linear-gradient(84deg, var(--space-accent), transparent 50%),
 		url("https://www.kennedy-center.org/globalassets/education/resources-for-educators/classroom-resources/artsedge/media/art-space/art-space-169.jpg");
 	background-size: cover;
+}
+
+.gradient-text {
+	background-clip: text;
+	-webkit-background-clip: text;
+	-moz-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	-moz-text-fill-color: transparent;
+	text-fill-color: transparent;
 }

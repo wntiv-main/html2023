@@ -10,7 +10,7 @@
 			$pages = [
 				"index.php" => "Home",
 				"contact.php" => "Contact",
-				"rules.html" => "Rules",
+				"rules.php" => "Rules",
 			];
 			foreach ($pages as $page => $name) {
 				echo "<li><a ";

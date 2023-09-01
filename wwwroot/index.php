@@ -24,8 +24,8 @@
 <body>
 	<article class="content parallax-container">
 		<section class="parallax-object parallax-back background"></section>
-		<?php include "./nav.php" ?>
-		<section class="parallax-object parallax-mid">
+		<?php include "./template/nav.php" ?>
+		<section class="parallax-object parallax-mid-front">
 			<div class="topic">
 				Welcome to the Cashmere High School 2024 Formal website. The information on this site is intended to
 				inform you of the details on out upcoming senior formal happening in August, as well as providing you
@@ -35,8 +35,8 @@
 				make sure you don't miss the opportunity to take part!
 			</div>
 		</section>
-		<section class="parallax-object parallax-front">
-			<div class="topic carousel">
+		<section class="parallax-object parallax-mid">
+			<div class="topic carousel right">
 				<?php
 					foreach (glob("img/carousel1/*.jpg") as $image) {
 						echo '<img src="', $image, '" alt="2022 Formal">';
