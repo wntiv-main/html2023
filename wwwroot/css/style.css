@@ -166,11 +166,11 @@ nav.navbar ul li a.active {
 }
 
 .parallax-object.flow .content-box {
-	padding-bottom: 7px;
+	padding-bottom: 12px;
 }
 
 .parallax-object.flow+.parallax-object .content-box {
-	padding-top: 7px;
+	padding-top: 12px;
 }
 
 .parallax-object.flow:has(.left) {
@@ -387,9 +387,26 @@ nav.navbar ul li a.active {
 .welcome {
 	background-color: rgb(249, 55, 210);
 	background-image: linear-gradient(158deg, rgba(249, 55, 210, 1) 0%, rgba(77, 205, 255, 1) 100%);
+	font-size: 3em;
+	margin: 0;
+	width: 900px;
+	max-width: 100%;
+	text-align: center;
+}
+
+.ad1 {
+	background-color: rgb(249, 55, 210);
+	background-image: linear-gradient(28deg, #ee00ff, #7818fd);
 	font-size: 2em;
 	margin: 0;
 	width: 900px;
 	max-width: 100%;
 	text-align: center;
+}
+
+.header {
+	border-bottom: 5px solid #ee00ffbf;
+	padding-bottom: 3px;
+	border-image: linear-gradient(158deg, rgba(249, 55, 210, 1) 0%, rgba(77, 205, 255, 1) 100%);
+	border-image-slice: 1;
 }

@@ -62,7 +62,7 @@ class ParticleSource extends RandomImageSource {
 		el.classList.add("parallax-object");
 
 		el.style.setProperty("width", this.width);
-		var zOffset = randint(-100, 400);
+		var zOffset = randint(-100, 300);
 		el.style.setProperty("--z-offset", zOffset);
 
 		var leftOffset = randint(470, window.innerWidth / 2);

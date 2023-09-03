@@ -34,8 +34,8 @@
 				<h2 class="welcome gradient-text">2024 Formal: Space Party!</h2>
 			</div>
 		</section>
-		<section class="parallax-object parallax-mid-back fix-alignment">
-			<div class="content-box carousel right">
+		<section class="parallax-object parallax-front">
+			<div class="content-box carousel">
 				<button class="prev" aria-label="previous image">&lt;</button>
 				<?php
 					foreach (glob("img/carousel1/*.jpg") as $image) {
@@ -43,6 +43,31 @@
 					}
 				?>
 				<button class="next" aria-label="next image">&gt;</button>
+			</div>
+		</section>
+		<section class="parallax-object parallax-mid-front fix-alignment">
+			<div class="content-box left">
+				<h3 class="ad1 gradient-text">Prepare for the time of your life at this year's formal</h3>
+			</div>
+		</section>
+		<section class="parallax-object parallax-front fix-alignment">
+			<div class="content-box right">
+				<h3 class="ad1 gradient-text">Tonight will truly be a night to remember</h3>
+			</div>
+		</section>
+		<section class="parallax-object parallax-mid flow">
+			<div class="content-box">
+				<h2 class="welcome gradient-text header">Heres what our past students say:</h2>
+			</div>
+		</section>
+		<section class="parallax-object parallax-mid fix-alignment flow">
+			<div class="content-box left">
+				<h3 class="ad1 gradient-text">Prepare for the time of your life at this year's formal</h3>
+			</div>
+		</section>
+		<section class="parallax-object parallax-mid fix-alignment">
+			<div class="content-box right">
+				<h3 class="ad1 gradient-text">Tonight will truly be a night to remember</h3>
 			</div>
 		</section>
 		<section class="parallax-object parallax-mid-front">
