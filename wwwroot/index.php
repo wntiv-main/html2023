@@ -8,17 +8,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Formal | Cashmere High School</title>
 	<link rel="stylesheet" href="css/style.css">
-	<script>
-		var particleImages = [
-			<?php
-				foreach (glob("img/particles/*.*") as $image) {
-					echo '"', $image, '",';
-				}
-			?>
-			"stub to consume last comma"
-		];
-		particleImages.pop();
-	</script>
 </head>
 
 <body>
@@ -26,7 +15,7 @@
 		<section class="parallax-object parallax-back background"></section>
 		<?php include "./template/nav.php" ?>
 		<section class="parallax-object parallax-mid-front">
-			<div class="topic">
+			<div class="content-box">
 				Welcome to the Cashmere High School 2024 Formal website. The information on this site is intended to
 				inform you of the details on out upcoming senior formal happening in August, as well as providing you
 				with an idea of what to expect once when you get there. The information and images included on this site
@@ -35,17 +24,29 @@
 				make sure you don't miss the opportunity to take part!
 			</div>
 		</section>
-		<section class="parallax-object parallax-mid">
-			<div class="topic carousel right">
+		<section class="parallax-object parallax-mid fix-alignment flow">
+			<div class="content-box left">
+				<h2 class="welcome gradient-text">Welcome to the Cashmere High</h2>
+			</div>
+		</section>
+		<section class="parallax-object parallax-mid fix-alignment">
+			<div class="content-box right">
+				<h2 class="welcome gradient-text">2024 Formal: Space Party!</h2>
+			</div>
+		</section>
+		<section class="parallax-object parallax-mid-back fix-alignment">
+			<div class="content-box carousel right">
+				<button class="prev" aria-label="previous image">&lt;</button>
 				<?php
 					foreach (glob("img/carousel1/*.jpg") as $image) {
-						echo '<img src="', $image, '" alt="2022 Formal">';
+						echo '<img class="affects-flow" src="', $image, '" alt="2022 Formal">';
 					}
 				?>
+				<button class="next" aria-label="next image">&gt;</button>
 			</div>
 		</section>
 		<section class="parallax-object parallax-mid-front">
-			<div class="topic">
+			<div class="content-box">
 				<h2>Event Details</h2>
 				<ul>
 					<li>Senior Formal 2024</li>

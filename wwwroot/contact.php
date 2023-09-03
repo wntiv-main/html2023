@@ -16,13 +16,13 @@
 			<section class="parallax-object parallax-back background"></section>
 			<?php include "./template/nav.php" ?>
 			<section class="parallax-object parallax-mid">
-				<div class="topic">
+				<div class="content-box">
 					To register your interest in attending this event, simply provide us with the following information
 					and we will notify you when more details are available.
 				</div>
 			</section>
 			<section class="parallax-object parallax-front">
-				<div class="topic">
+				<div class="content-box">
 					<ul>
 						<li>Your Name (first and last)</li>
 						<li>Form Class</li>
@@ -32,7 +32,7 @@
 				</div>
 			</section>
 			<section class="parallax-object parallax-mid-front">
-				<div class="topic">
+				<div class="content-box">
 					Contact us here: <a href="mailto:formal@cashmere.school.nz">formal@cashmere.school.nz</a>
 				</div>
 			</section>
