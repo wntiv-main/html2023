@@ -202,6 +202,7 @@ function resize() {
 	for(var carousel of document.getElementsByClassName("carousel")) {
 		var max = 0;
 		for(var image of carousel.children) {
+			if(!(image instanceof HTMLImageElement)) continue;
 			image.style.width = `${carousel.getBoundingClientRect().width}px`;
 			max = Math.max(max, image.naturalHeight / image.naturalWidth * carousel.getBoundingClientRect().width);
 		}
@@ -231,6 +232,10 @@ for(var el of document.getElementsByClassName("next")) {
 	el.addEventListener("click", () => el.parentElement.scrollBy(Math.min(900, window.innerWidth), 0));
 }
 
+document.addEventListener("mousemove", e => {
+	document.body.style.setProperty("--mouseX", e.clientX);
+	document.body.style.setProperty("--mouseY", e.clientY);
+});
 
 // document.getElementsByClassName("content")[0].addEventListener("scroll", () => {
 // 	for(var content-box of document.getElementsByClassName("content-box")) {

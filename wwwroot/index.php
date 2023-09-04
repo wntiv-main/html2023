@@ -12,9 +12,9 @@
 
 <body>
 	<article class="content parallax-container">
-		<section class="parallax-object parallax-back background"></section>
+		<section class="parallax-object parallax-back background fix-alignment"></section>
 		<?php include "./template/nav.php" ?>
-		<section class="parallax-object parallax-mid-front">
+		<!-- <section class="parallax-object parallax-mid-front">
 			<div class="content-box">
 				Welcome to the Cashmere High School 2024 Formal website. The information on this site is intended to
 				inform you of the details on out upcoming senior formal happening in August, as well as providing you
@@ -23,15 +23,15 @@
 				into considering attending yourself. This is truly one of the highlights of the senior school years, so
 				make sure you don't miss the opportunity to take part!
 			</div>
-		</section>
+		</section> -->
 		<section class="parallax-object parallax-mid fix-alignment flow">
 			<div class="content-box left">
-				<h2 class="welcome gradient-text">Welcome to the Cashmere High</h2>
+				<h2 class="welcome moveable-background gradient-text">Welcome to the Cashmere High</h2>
 			</div>
 		</section>
 		<section class="parallax-object parallax-mid fix-alignment">
 			<div class="content-box right">
-				<h2 class="welcome gradient-text">2024 Formal: Space Party!</h2>
+				<h2 class="welcome moveable-background gradient-text">2024 Formal: Space Party!</h2>
 			</div>
 		</section>
 		<section class="parallax-object parallax-front">
@@ -62,12 +62,12 @@
 		</section>
 		<section class="parallax-object parallax-mid fix-alignment flow">
 			<div class="content-box left">
-				<h3 class="ad1 gradient-text">Prepare for the time of your life at this year's formal</h3>
+				<h3 class="ad1 gradient-text">"The most significant and memorable event of my life at school"</h3>
 			</div>
 		</section>
 		<section class="parallax-object parallax-mid fix-alignment">
 			<div class="content-box right">
-				<h3 class="ad1 gradient-text">Tonight will truly be a night to remember</h3>
+				<h3 class="ad1 gradient-text">"This is truly one of the highlights of the senior school years"</h3>
 			</div>
 		</section>
 		<section class="parallax-object parallax-mid-front">

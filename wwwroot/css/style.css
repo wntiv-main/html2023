@@ -123,11 +123,15 @@ nav.navbar ul li a.active {
 	left: 0;
 }
 
+.parallax-object.fix-alignment {
+	transform: var(--parallax-transform-scale) translateX(calc(-1 * var(--left-offset)));
+}
+
 @media (min-width: 900px) {
 
 	.parallax-object:has(.content-box.left, .content-box.right) {
 		width: fit-content;
-		transform: var(--parallax-transform-scale) translateX(calc(-1 * var(--left-offset)));
+		transform: var(--parallax-transform-scale);
 	}
 
 	.parallax-object:has(.content-box.left) {
@@ -302,41 +306,53 @@ nav.navbar ul li a.active {
 }
 
 .carousel .prev, .carousel .next {
+	--scale: 1;
 	color: white;
+	border: 1px solid white;
+	text-shadow: 1px 1px 4px black;
+
 	position: sticky;
 	display: inline-block;
 	left: -10px;
-	max-width: 40px;
-	height: 40px;
-	border: 1px solid white;
-	border-radius: 1000px;
-	background: var(--space-secondary);
-	z-index: 20;
 	top: 50%;
+	width: 40px;
+	height: 40px;
+	z-index: 20;
+	border-radius: 1000px;
 	transform: translateY(-50%) scale(var(--scale));
-	backdrop-filter: blur(10px);
 	text-align: center;
 	line-height: 40px;
+	
+	background: var(--space-secondary);
+	background-image: radial-gradient(circle, rgba(249, 55, 210, 1) 0%, rgba(77, 205, 255, 1) 71%, transparent 75%);
+	background-size: 400% 400%;
+	background-position: 120% 120%;
+	background-repeat: no-repeat;
+	backdrop-filter: blur(10px);
+	transition: background-position 0.3s, --scale 0.2s;
+}
+
+.carousel .prev:hover, .carousel .next:hover, .carousel .prev:focus, .carousel .next:focus {
+	background-position: 71% 71%;
+	--scale: 1.1;
 }
 
 .carousel .prev {
 	left: -50px;
-	transition: left 0.5s;
+	transition: background-position 0.3s, --scale 0.2s, left 0.5s;
 }
 
 .carousel .next {
 	right: -50px;
-	transition: right 0.5s;
+	transition: background-position 0.3s, --scale 0.2s, right 0.5s;
 }
 
-.carousel:hover .prev {
+.carousel:hover .prev, .carousel:has(:focus) .prev {
 	left: 10px;
-	transition: left 0.5s;
 }
 
-.carousel:hover .next {
+.carousel:hover .next, .carousel:has(:focus) .next {
 	right: 10px;
-	transition: right 0.5s;
 }
 
 .carousel::before:hover {
@@ -375,6 +391,12 @@ nav.navbar ul li a.active {
 	background-size: cover;
 }
 
+.moveable-background {
+	background-attachment: fixed;
+	background-position: calc(1px * var(--mouseX) - 100vw) calc(1px * var(--mouseY) - 100vh);
+	background-size: 200vw 200vh;
+}
+
 .gradient-text {
 	background-clip: text;
 	-webkit-background-clip: text;
@@ -386,7 +408,7 @@ nav.navbar ul li a.active {
 
 .welcome {
 	background-color: rgb(249, 55, 210);
-	background-image: linear-gradient(158deg, rgba(249, 55, 210, 1) 0%, rgba(77, 205, 255, 1) 100%);
+	background-image: radial-gradient(circle, rgba(249, 55, 210, 1) 0%, rgba(77, 205, 255, 1) 100%);
 	font-size: 3em;
 	margin: 0;
 	width: 900px;
@@ -405,6 +427,7 @@ nav.navbar ul li a.active {
 }
 
 .header {
+	background-image: linear-gradient(158deg, rgba(249, 55, 210, 1) 0%, rgba(77, 205, 255, 1) 100%);
 	border-bottom: 5px solid #ee00ffbf;
 	padding-bottom: 3px;
 	border-image: linear-gradient(158deg, rgba(249, 55, 210, 1) 0%, rgba(77, 205, 255, 1) 100%);
