@@ -433,3 +433,17 @@ nav.navbar ul li a.active {
 	border-image: linear-gradient(158deg, rgba(249, 55, 210, 1) 0%, rgba(77, 205, 255, 1) 100%);
 	border-image-slice: 1;
 }
+
+.bold {
+	font-weight: bold;
+}
+
+a.link {
+	color: white;
+	text-decoration: none;
+	border-bottom: 2px solid currentColor;
+}
+
+a.link:hover {
+	border-bottom: 4px solid currentColor;
+}

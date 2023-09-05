@@ -9,6 +9,7 @@
 		<?php
 			$pages = [
 				"index.php" => "Home",
+				"details.php" => "Details",
 				"contact.php" => "Contact",
 				"rules.php" => "Rules",
 			];

@@ -225,11 +225,19 @@ window.addEventListener("resize", resize);
 document.querySelectorAll("img.affects-flow").forEach(el => el.addEventListener("load", resize));
 
 for(var el of document.getElementsByClassName("prev")) {
-	el.addEventListener("click", () => el.parentElement.scrollBy(-Math.min(900, window.innerWidth), 0));
+	el.addEventListener("click", e => {
+		el.parentElement.scrollBy(-Math.min(900, window.innerWidth), 0);
+	});
+	// Gets called for mouse clicks but not keyboard users
+	el.addEventListener("mouseup", el.blur);
 }
 
 for(var el of document.getElementsByClassName("next")) {
-	el.addEventListener("click", () => el.parentElement.scrollBy(Math.min(900, window.innerWidth), 0));
+	el.addEventListener("click", e => {
+		el.parentElement.scrollBy(Math.min(900, window.innerWidth), 0);
+	});
+	// Gets called for mouse clicks but not keyboard users
+	el.addEventListener("mouseup", el.blur);
 }
 
 document.addEventListener("mousemove", e => {

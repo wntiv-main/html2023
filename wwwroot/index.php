@@ -70,17 +70,6 @@
 				<h3 class="ad1 gradient-text">"This is truly one of the highlights of the senior school years"</h3>
 			</div>
 		</section>
-		<section class="parallax-object parallax-mid-front">
-			<div class="content-box">
-				<h2>Event Details</h2>
-				<ul>
-					<li>Senior Formal 2024</li>
-					<li>Saturday 10th August 2024</li>
-					<li>Wigram Air Force Museum</li>
-					<li>The doors will open at 7pm. The event finishes at 11pm.</li>
-				</ul>
-			</div>
-		</section>
 	</article>
 	<script src="js/index.js"></script>
 </body>
