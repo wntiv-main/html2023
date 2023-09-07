@@ -128,7 +128,6 @@ nav.navbar ul li a.active {
 }
 
 @media (min-width: 900px) {
-
 	.parallax-object:has(.content-box.left, .content-box.right) {
 		width: fit-content;
 		transform: var(--parallax-transform-scale);
@@ -146,7 +145,6 @@ nav.navbar ul li a.active {
 		padding-right: calc(50% - 450px);
 		border-radius: 20px 0 0 20px;
 	}
-
 }
 
 .parallax-object:has(.content-box) {
@@ -220,6 +218,8 @@ nav.navbar ul li a.active {
 
 .content-box.left, .content-box.right {
 	margin: 0;
+	width: 900px;
+	max-width: 100%;
 }
 
 .content-box+.content-box {
@@ -387,7 +387,7 @@ nav.navbar ul li a.active {
 	background-image:
 		linear-gradient(260deg, #030014, transparent),
 		linear-gradient(84deg, var(--space-accent), transparent 50%),
-		url("https://www.kennedy-center.org/globalassets/education/resources-for-educators/classroom-resources/artsedge/media/art-space/art-space-169.jpg");
+		url("../img/background.jpg");
 	background-size: cover;
 }
 
@@ -436,14 +436,31 @@ nav.navbar ul li a.active {
 
 .bold {
 	font-weight: bold;
+	display: inline-block;
+	width: 100px;
+	text-align: right;
 }
 
 a.link {
 	color: white;
 	text-decoration: none;
 	border-bottom: 2px solid currentColor;
+	border-radius: 0 0 2px 2px;
+	transition: border-bottom 0.2s, border-radius 0.2s;
 }
 
 a.link:hover {
 	border-bottom: 4px solid currentColor;
+}
+
+.uline {
+	border-bottom: 10px solid #ee00ffbf;
+	border-image: linear-gradient(158deg, rgba(249, 55, 210, 1) 0%, rgba(77, 205, 255, 1) 100%);
+	border-image-slice: 1;
+}
+
+.list::before {
+	content: "-";
+	position: absolute;
+	left: 10px;
 }

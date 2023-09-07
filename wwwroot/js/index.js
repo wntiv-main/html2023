@@ -219,6 +219,8 @@ var contentContainer = document.getElementsByClassName("content")[0];
 // });
 
 resize();
+// AHHH this needs to be here to work dont ask me why
+setTimeout(resize, 10);
 // i love performance >:)
 window.addEventListener("resize", resize);
 // Images that might redirect flow

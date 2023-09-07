@@ -13,7 +13,7 @@
 <body>
 	<div class="container">
 		<article class="content parallax-container">
-			<section class="parallax-object parallax-back background"></section>
+			<section class="parallax-object parallax-back background fix-alignment"></section>
 			<?php include "./template/nav.php" ?>
 			<section class="parallax-object parallax-mid">
 				<div class="content-box">
