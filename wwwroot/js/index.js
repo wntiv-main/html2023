@@ -54,14 +54,14 @@ class ParticleSource extends RandomImageSource {
 	postLoad(el) {
 		el.classList.add("particle");
 		el.classList.add("parallax-object");
+		el.alt = "";
+		el.style.setProperty("width", this.width);
+		// performance plz
+		el.style.setProperty("position", "absolute");
 		return super.postLoad(el);
 	}
 
 	postClone(el) {
-		el.classList.add("particle");
-		el.classList.add("parallax-object");
-
-		el.style.setProperty("width", this.width);
 		var zOffset = randint(-100, 300);
 		el.style.setProperty("--z-offset", zOffset);
 
@@ -70,7 +70,6 @@ class ParticleSource extends RandomImageSource {
 		el.style.setProperty("--left", `${leftOffset}px`);
 		el.style.setProperty("--top", `${randint(0, document.getElementsByClassName("content")[0].scrollHeight)}px`);
 
-		document.getElementsByClassName("content")[0].appendChild(el);
 		return super.postClone(this.additionalEffects(el));
 	}
 }
@@ -79,6 +78,8 @@ class ParticleManager {
 	sources = [];
 	totalWeight = 0;
 	particles = [];
+	fragment = document.createDocumentFragment();
+
 	constructor() {
 	}
 
@@ -101,7 +102,13 @@ class ParticleManager {
 	create() {
 		var particle = this.getSource().getNode();
 		this.particles.push(particle);
+		this.fragment.appendChild(particle);
 		return particle;
+	}
+
+	ready() {
+		document.getElementsByClassName("content")[0].appendChild(this.fragment);
+		this.fragment = document.createDocumentFragment();
 	}
 
 	handleResize() {
@@ -109,9 +116,9 @@ class ParticleManager {
 		var widestWidth = 470;
 		if(window.innerWidth < 470 * 2) {
 			for(var i = 0; i < this.particles.length; i++) {
-				particles[i].remove();
+				this.particles[i].remove();
 			}
-			particles = [];
+			this.particles = [];
 		}
 		for(var i = 0; i < this.particles.length; i++) {
 			var leftOffset = Math.abs(parseFloat(this.particles[i].style.getPropertyValue("--left")));
@@ -175,6 +182,7 @@ Promise.allSettled([
 	for(let i = 0; i < 100; i++) {
 		particles.create();
 	}
+	particles.ready();
 });
 
 function resize() {
