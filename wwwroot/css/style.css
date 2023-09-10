@@ -7,6 +7,18 @@ body {
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+@property --mouseX {
+	syntax: '<number>';
+	initial-value: 0;
+	inherits: false;
+}
+
+@property --mouseY {
+	syntax: '<number>';
+	initial-value: 0;
+	inherits: false;
+}
+
 :root {
 	--school-color: #692933;
 	--space-accent: #311d51C0;
@@ -15,7 +27,7 @@ body {
 	--nav-background: linear-gradient(135deg, var(--school-color) var(--logo-width), transparent calc(var(--logo-width) + 20%)),
 		linear-gradient(185deg, var(--space-accent), var(--space-secondary));
 
-	--nav-height: calc(30px + 1em);
+	--nav-height: calc(30px + 1.3em);
 	--pre-nav-height: 4em;
 
 	--content-width: 900px;
@@ -83,7 +95,8 @@ nav.navbar ul {
 
 nav.navbar ul li {
 	display: inline-block;
-	font-size: 1rem;
+	font-size: 1.3rem;
+	font-weight: bold;
 }
 
 nav.navbar ul li a {
@@ -259,15 +272,20 @@ nav.navbar ul li a.active {
 .particle {
 	--ambient-rotate: 0deg;
 	--rotate-scale: calc(var(--z-offset) / var(--perspective) + 1);
+	--particle-transform: translate(-50%, -50%) var(--parallax-transform-scale) translate(var(--left), var(--top));
 	--left: 0px;
 	--top: 0px;
 	top: 0;
 	left: 50%;
-	transform: translate(-50%, -50%) var(--parallax-transform-scale) translate(var(--left), var(--top)) rotateZ(calc(var(--ambient-rotate) + 0.1deg * var(--rotate-scale) * var(--scroll-height)));
+	transform: var(--particle-transform);
 	-webkit-user-drag: none;
 	user-select: none;
-	animation: ambient-rotate calc(20s * var(--rotate-scale)) linear 0s infinite forwards;
 	/* transition: --scroll-height 1s; */
+}
+
+.particle:not(.no-spin) {
+	transform: var(--particle-transform) rotateZ(calc(var(--ambient-rotate) + 0.1deg * var(--rotate-scale) * var(--scroll-height)));
+	animation: ambient-rotate calc(20s * var(--rotate-scale)) linear 0s infinite forwards;
 }
 
 .content-box:not(img, .carousel) {
@@ -322,7 +340,7 @@ nav.navbar ul li a.active {
 	transform: translateY(-50%) scale(var(--scale));
 	text-align: center;
 	line-height: 40px;
-	
+
 	background: var(--space-secondary);
 	background-image: radial-gradient(circle, rgba(249, 55, 210, 1) 0%, rgba(77, 205, 255, 1) 71%, transparent 75%);
 	background-size: 400% 400%;
@@ -407,8 +425,6 @@ nav.navbar ul li a.active {
 }
 
 .welcome {
-	background-color: rgb(249, 55, 210);
-	background-image: radial-gradient(circle, rgba(249, 55, 210, 1) 0%, rgba(77, 205, 255, 1) 100%);
 	font-size: 3em;
 	margin: 0;
 	width: 900px;
@@ -416,9 +432,34 @@ nav.navbar ul li a.active {
 	text-align: center;
 }
 
-.ad1 {
+.accent1 {
 	background-color: rgb(249, 55, 210);
-	background-image: linear-gradient(28deg, #ee00ff, #7818fd);
+	background-image: linear-gradient(28deg, #ff5c9b, #8873ff);
+}
+
+.accent1.moveable-background {
+	background-image: radial-gradient(circle, #ff5c9b, #8873ff);
+}
+
+.accent2 {
+	background-color: rgb(249, 120, 55);
+	background-image: linear-gradient(28deg, #ff9d47, #de73ff);
+}
+
+.accent2.moveable-background {
+	background-image: radial-gradient(circle, #ff9d47, #de73ff);
+}
+
+.accent3 {
+	background-color: rgb(55, 200, 249);
+	background-image: linear-gradient(158deg, rgba(249, 55, 210, 1) 0%, rgba(77, 205, 255, 1) 100%);
+}
+
+.accent3.moveable-background {
+	background-image: radial-gradient(circle, rgba(249, 55, 210, 1) 0%, rgba(77, 205, 255, 1) 100%);
+}
+
+.ad {
 	font-size: 2em;
 	margin: 0;
 	width: 900px;
@@ -427,7 +468,6 @@ nav.navbar ul li a.active {
 }
 
 .header {
-	background-image: linear-gradient(158deg, rgba(249, 55, 210, 1) 0%, rgba(77, 205, 255, 1) 100%);
 	border-bottom: 5px solid #ee00ffbf;
 	padding-bottom: 3px;
 	border-image: linear-gradient(158deg, rgba(249, 55, 210, 1) 0%, rgba(77, 205, 255, 1) 100%);
@@ -446,11 +486,12 @@ a.link {
 	text-decoration: none;
 	border-bottom: 2px solid currentColor;
 	border-radius: 0 0 2px 2px;
-	transition: border-bottom 0.2s, border-radius 0.2s;
+	transition: border-bottom 0.2s, border-radius 0.2s, color 0.2s;
 }
 
 a.link:hover {
 	border-bottom: 4px solid currentColor;
+	color: #ff45a2;
 }
 
 .uline {
@@ -463,4 +504,99 @@ a.link:hover {
 	content: "-";
 	position: absolute;
 	left: 10px;
+}
+
+.registration input, .btn-link {
+	background-color: #ffffff30;
+	color: white;
+	font-size: 1.2em;
+	padding: 20px;
+	border-radius: 1000px;
+	border: none;
+	margin: 5px;
+	box-shadow: #ffffff30 1px 1px 3px;
+	transition: background-color 0.3s;
+}
+
+.registration input::placeholder {
+	color: #ff45a2;
+}
+
+.full-width {
+	width: 100%;
+}
+
+.registration input[type="submit"], .btn-link {
+	box-shadow: #ffffff60 5px 5px;
+}
+
+.registration input[type="submit"]:hover, .registration input[type="text"]:focus, .btn-link:hover {
+	background-color: #ffffff60;
+}
+
+.registration input[type="submit"]:active, .btn-link:active {
+	box-shadow: #ffffff60 2px 2px;
+}
+
+a:has(.btn-link) {
+	-webkit-user-drag: none;
+}
+
+.required, .error-container.err input {
+	box-shadow: #ff0000c0 1px 1px 3px;
+}
+
+.error-container {
+	position: relative;
+	overflow: visible;
+}
+
+.error-container.err::after {
+	content: "There was an error.";
+	box-sizing: border-box;
+	position: absolute;
+	display: block;
+	background-color: aliceblue;
+	border-radius: 5px;
+	padding: 10px;
+	color: red;
+	left: 0px;
+	top: -30px;
+	z-index: 1000;
+	transform: translateY(-100%);
+	min-width: 200px;
+}
+
+.error-container.err.empty::after {
+	content: "This field is required.";
+}
+
+.error-container.err.toolong_n::after {
+	content: "Name is restricted to a length of 30 characters.";
+}
+
+.error-container.err.toolong_fc::after {
+	content: "Form class should be no more than 5 characters.";
+}
+
+.error-container.err.toolong_em::after {
+	content: "Email should be no more than 50 characters.";
+}
+
+.error-container.err.illegal_chars_n::after {
+	content: "Name should only contain latin alphabet (A-Z, a-z), "
+		"if you have a name with other characters, please choose "
+		"an English alternative.";
+}
+
+.error-container.err.illegal_chars_fc::after {
+	content: "Form class should only contain latin alphabet (A-Z) and digits (0-9).";
+}
+
+.error-container.err.illegal_chars_em::after {
+	content: "Email should only contain latin alphabet (A-Z, a-z), as well as some symbols (@._-).";
+}
+
+.center {
+	text-align: center;
 }

@@ -26,12 +26,12 @@
 		</section> -->
 		<section class="parallax-object parallax-mid fix-alignment flow">
 			<div class="content-box left">
-				<h2 class="welcome moveable-background gradient-text">Welcome to the Cashmere High</h2>
+				<h2 class="welcome accent3 moveable-background gradient-text">Welcome to the Cashmere High</h2>
 			</div>
 		</section>
 		<section class="parallax-object parallax-mid fix-alignment">
 			<div class="content-box right">
-				<h2 class="welcome moveable-background gradient-text">2024 Formal: Space Party!</h2>
+				<h2 class="welcome accent2 moveable-background gradient-text">2024 Formal: Space Party!</h2>
 			</div>
 		</section>
 		<section class="parallax-object parallax-front">
@@ -47,27 +47,33 @@
 		</section>
 		<section class="parallax-object parallax-mid-front fix-alignment">
 			<div class="content-box left">
-				<h3 class="ad1 gradient-text">Prepare for the time of your life at this year's formal</h3>
+				<h3 class="ad accent2 moveable-background gradient-text">Prepare for the time of your life at this year's formal</h3>
 			</div>
 		</section>
 		<section class="parallax-object parallax-front fix-alignment">
 			<div class="content-box right">
-				<h3 class="ad1 gradient-text">Tonight will truly be a night to remember</h3>
+				<h3 class="ad accent1 gradient-text">Tonight will truly be a night to remember</h3>
 			</div>
 		</section>
 		<section class="parallax-object parallax-mid flow">
 			<div class="content-box">
-				<h2 class="welcome gradient-text header">Heres what our past students say:</h2>
+				<h2 class="welcome accent3 gradient-text header">Heres what our past students say:</h2>
 			</div>
 		</section>
 		<section class="parallax-object parallax-mid fix-alignment flow">
 			<div class="content-box left">
-				<h3 class="ad1 gradient-text">"The most significant and memorable event of my life at school"</h3>
+				<h3 class="ad accent2 gradient-text">"The most significant and memorable event of my life at school"</h3>
 			</div>
 		</section>
 		<section class="parallax-object parallax-mid fix-alignment">
 			<div class="content-box right">
-				<h3 class="ad1 gradient-text">"This is truly one of the highlights of the senior school years"</h3>
+				<h3 class="ad accent3 moveable-background gradient-text">"This is truly one of the highlights of the senior school years"</h3>
+			</div>
+		</section>
+		<section class="parallax-object parallax-front">
+			<div class="content-box center">
+				<a href="./details.php"><button class="btn-link">Details</button></a>
+				<a href="./form.php"><button class="btn-link">Register</button></a>
 			</div>
 		</section>
 	</article>

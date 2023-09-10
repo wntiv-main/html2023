@@ -10,7 +10,7 @@
 			$pages = [
 				"index.php" => "Home",
 				"details.php" => "Details",
-				"contact.php" => "Contact",
+				"form.php" => "Register",
 				"rules.php" => "Rules",
 			];
 			foreach ($pages as $page => $name) {

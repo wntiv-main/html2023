@@ -8,6 +8,7 @@ class RandomImageSource {
 	width = "100px";
 	weight = 1;
 	postprocess = (r, g, b) => [r, g, b];
+	extraClasses = [];
 	#imageNode = null;
 
 	constructor(obj) {
@@ -15,6 +16,7 @@ class RandomImageSource {
 		if("width" in obj) this.width = obj.width;
 		if("weight" in obj) this.weight = obj.weight;
 		if("postprocess" in obj) this.postprocess = obj.postprocess;
+		if("extraClasses" in obj) this.extraClasses = obj.extraClasses;
 	}
 
 	async load() {
@@ -32,6 +34,7 @@ class RandomImageSource {
 	}
 
 	postLoad(el) {
+		el.classList.add(...this.extraClasses);
 		return el;
 	}
 	postClone(el) {
@@ -79,6 +82,7 @@ class ParticleManager {
 	totalWeight = 0;
 	particles = [];
 	fragment = document.createDocumentFragment();
+	timeoutID = -1;
 
 	constructor() {
 	}
@@ -111,28 +115,50 @@ class ParticleManager {
 		this.fragment = document.createDocumentFragment();
 	}
 
+	prepareResize() {
+		// Call handleResize() after we have not been called for >300ms
+		// to avoid calling too frequently and causing too many DOM updates.
+		if(this.timeoutID >= 0) clearTimeout(this.timeoutID);
+		this.timeoutID = setTimeout(() => {
+			// shut up, its JS i dotn have to care about thread safety
+			this.timeoutID = -1;
+			this.handleResize();
+		}, 300);
+	}
+
 	handleResize() {
 		if(!this.totalWeight) return;
 		var widestWidth = 470;
+		var newWidth = window.innerWidth / 2;
 		if(window.innerWidth < 470 * 2) {
 			for(var i = 0; i < this.particles.length; i++) {
 				this.particles[i].remove();
 			}
 			this.particles = [];
+			return;
 		}
 		for(var i = 0; i < this.particles.length; i++) {
 			var leftOffset = Math.abs(parseFloat(this.particles[i].style.getPropertyValue("--left")));
 			var width = this.particles[i].getBoundingClientRect().width;
 			widestWidth = Math.max(widestWidth, leftOffset);
 			// Check particle is outside of screen space
-			if(leftOffset > width + window.innerWidth / 2) {
+			if(leftOffset > width + window.innerWidth / 2 || this.particles[i].offsetTop < 0) {
 				this.particles[i].remove();
 				this.particles.splice(i, 1);
 				i--;
 			}
 		}
-		// TODO: create new particles
-		this.create();
+		// Randomly create new particles
+		var spaceToFill = newWidth - widestWidth;
+		// Random chance could never stop, so have upper limit
+		while(this.particles.length < (newWidth - 400) / 6 || randint(0, spaceToFill) > 1 && this.particles.length < (newWidth - 400) / 3) {
+			var particle = this.create();
+			var leftOffset = randint(widestWidth, newWidth);
+			if(Math.random() > 0.5) leftOffset = -leftOffset;
+			particle.style.setProperty("--left", `${leftOffset}px`);
+			spaceToFill--;
+		}
+		this.ready();
 	}
 }
 
@@ -146,7 +172,8 @@ Promise.allSettled([
 	particles.addSource(new ParticleSource({
 		url: "./img/particles/point_star.png",
 		width: "10px",
-		weight: 20
+		weight: 20,
+		extraClasses: ["nospin"]
 	})),
 	particles.addSource(new ParticleSource({
 		url: "./img/particles/star1.png",
@@ -179,10 +206,7 @@ Promise.allSettled([
 		additionalEffects: varyHue
 	}))
 ]).then(() => {
-	for(let i = 0; i < 100; i++) {
-		particles.create();
-	}
-	particles.ready();
+	particles.handleResize();
 });
 
 function resize() {
@@ -192,7 +216,7 @@ function resize() {
 		while(bottomMostChild.classList.contains("particle") || window.getComputedStyle(bottomMostChild, null).getPropertyValue("position") == "absolute") {
 			bottomMostChild = bottomMostChild.previousElementSibling;
 		}
-		var height = (bottomMostChild.offsetTop + bottomMostChild.getBoundingClientRect().height / 2 + window.innerHeight / 2);
+		var height = Math.max(bottomMostChild.offsetTop + bottomMostChild.getBoundingClientRect().height / 2 + window.innerHeight / 2, window.innerHeight);
 		el.firstElementChild.style.height = height + "px";
 	}
 
@@ -217,11 +241,11 @@ function resize() {
 		carousel.style.setProperty("--carousel-height", `${max}px`);
 	}
 
-	particles.handleResize();
+	particles.prepareResize();
 }
 
 var contentContainer = document.getElementsByClassName("content")[0];
-//// F%$^*(#&)(*#s performance, hmmm
+//// kills performance, hmmm
 // contentContainer.addEventListener("scroll", () => {
 // 	contentContainer.style.setProperty("--scroll-height", contentContainer.scrollTop);
 // });
@@ -250,9 +274,23 @@ for(var el of document.getElementsByClassName("next")) {
 	el.addEventListener("mouseup", el.blur);
 }
 
+var els = [...document.getElementsByClassName("moveable-background")];
 document.addEventListener("mousemove", e => {
-	document.body.style.setProperty("--mouseX", e.clientX);
-	document.body.style.setProperty("--mouseY", e.clientY);
+	for(var el of els) {
+		el.style.setProperty("--mouseX", e.clientX);
+		el.style.setProperty("--mouseY", e.clientY);
+	}
+	// document.body.style.setProperty("--mouseX", e.clientX);
+	// document.body.style.setProperty("--mouseY", e.clientY);
+});
+
+// for(... of ...) loop does not work; JS stupid.
+[...document.getElementsByClassName("required")].forEach(el => {
+	el.addEventListener("change", e => {
+		if(e.target.value) e.target.classList.remove("required");
+		else e.target.classList.add("required");
+	});
+	if(el.value) el.classList.remove("required");
 });
 
 // document.getElementsByClassName("content")[0].addEventListener("scroll", () => {
